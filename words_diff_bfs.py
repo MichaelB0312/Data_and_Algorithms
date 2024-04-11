@@ -1,84 +1,11 @@
-# Basic data manipulations
+from collections import deque
+from typing import Optional, List, Tuple, Set, Dict, Any, Union
 import pandas as pd
 import numpy as np
 import os
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
-#
-
-# chi-squared test
-num_categories = 1
-dof = 1 # degrees of freedom
-alpha = 0.1
-observed = [-1.61426, -1.61426,
-0.982153,
--1.1701,
-0.355576,
-1.715741,
-0.033332,
-3.019362,
-0.386953,
-0.318027,
--0.15467,
-0.052758,
-0.84624,
-0.252796,
-0.806676,
-1.02176,
--0.1046,
-1.144919,
--0.38288,
--0.00055,
--1.099,
--1.39887,
--0.23666,
-0.188631,
--0.01144,
--0.47493,
--1.77226,
-0.705414,
--0.09772,
-1.506978,
--0.9809]
-
-import scipy.stats as stats
-# compute critical value using the inverse of the CDF
-C = np.exp(-0.5*stats.chi2.ppf(q=1-alpha, df=dof))
-logC = -0.5*stats.chi2.ppf(q=1-alpha, df=dof)
-print("the logC is: ", logC)
-
-medY = np.median(observed)
-log_of_Ls = -1*np.sum(np.abs(observed)) -1*(np.sum(np.abs(observed-medY)))
-print("log_of_Ls is:", log_of_Ls)
-if log_of_Ls < logC:
-    print("H_0 is rejected!")
-else:
-    print("H_0 is accepted!")
-
-str_arr = np.chararray((5,5))
-str_arr[:] = ' '
-
-str_arr[4,0:] = '*'
-str_arr[3, 1:-1] = '*'
-print(str_arr)
-mystr = 'hello' + '\n'
-mystr += 1*' ' +  mystr[1:-2] + 1*' '
-print(mystr)
-
-# while str[0] == ' ':
-#     str = str[1:]
-# print(str)
-str = "(1+(4+5+2)-3)+(6+8)"
-new_str = ''
-for i in range(len(str)):
-    if str[i] != ' ' and str[i] != '(' and str[i] != ')':
-       new_str = new_str + str[i]
-
-print(new_str)
-
-from collections import deque
-from typing import Optional, List, Tuple, Set, Dict, Any, Union
 
 class Node:
     def __init__(self, word):
@@ -145,12 +72,9 @@ class Solution:
         return np.sum(diffs_arr) == 1
 
 
-
 beginWord = "hit"
 endWord = "cog"
 wordList = ["hot","dot","dog","lot","log"]
 
 sol = Solution()
 print("shortest path is:", sol.ladderLength(beginWord,endWord,wordList))
-
-
