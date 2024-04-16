@@ -145,10 +145,9 @@ class Solution:
         return np.sum(diffs_arr) == 1
 
 
-
-beginWord = "hit"
-endWord = "cog"
-wordList = ["hot","dot","dog","lot","log"]
+beginWord = "a"
+endWord = "c"
+wordList = ["a","b","c"]
 
 sol = Solution()
 print("shortest path is:", sol.ladderLength(beginWord,endWord,wordList))
