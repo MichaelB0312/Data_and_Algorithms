@@ -57,22 +57,22 @@ class Solution:
         board[i][j] = '@'
 
         retval = 0
-        if i < len(board[0])-1 and curr_node.children[ord(board[i+1][j]) - ord('a')]:
+        if i < len(board[0])-1 and (ord(board[i][j-1]) - ord('a'))>0 and curr_node.children[ord(board[i+1][j]) - ord('a')]:
            curr_node = curr_node.children[ord(board[i+1][j]) - ord('a')]
            out_word += board[i+1][j]
            retval = self.backtrack(board, i+1, j, out_word, curr_node)
 
-        elif i>0 and curr_node.children[ord(board[i-1][j]) - ord('a')]:
+        elif i>0 and (ord(board[i][j-1]) - ord('a'))>0 and curr_node.children[ord(board[i-1][j]) - ord('a')]:
             curr_node = curr_node.children[ord(board[i-1][j]) - ord('a')]
             out_word += board[i-1][j]
             retval = self.backtrack(board, i - 1, j, out_word, curr_node)
 
-        elif j>0 and curr_node.children[ord(board[i][j-1]) - ord('a')]:
+        elif j>0 and (ord(board[i][j-1]) - ord('a'))>0 and curr_node.children[ord(board[i][j-1]) - ord('a')]:
             curr_node = curr_node.children[ord(board[i][j-1]) - ord('a')]
             out_word += board[i][j-1]
             retval = self.backtrack(board, i,j-1, out_word, curr_node)
 
-        elif j<len(board[1])-1 and curr_node.children[ord(board[i][j+1]) - ord('a')]:
+        elif j<len(board[1])-1 and (ord(board[i][j-1]) - ord('a'))>0 and curr_node.children[ord(board[i][j+1]) - ord('a')]:
             curr_node = curr_node.children[ord(board[i][j+1]) - ord('a')]
             out_word += board[i][j+1]
             retval = self.backtrack(board, i,j+1, out_word, curr_node)
@@ -84,10 +84,7 @@ class Solution:
 
 
 
-
-
-
-board = [["o", "a", "a", "n"], ["e", "t", "a", "e"], ["i", "h", "k", "r"], ["i", "f", "l", "v"]]
-words = ["oath","pea","eat","rain"]
+board = [["a","b"],["c","d"]]
+words = ["abcb"]
 sol = Solution()
 print(sol.findWords(board, words))
