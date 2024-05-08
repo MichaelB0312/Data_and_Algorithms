@@ -92,9 +92,27 @@ class Solution:
 
         return max(singleTrans, twoTrans)
 
+    ####### more elegant solution  O(n)#######
+    def shorter_maxProfit(self, prices: List[int]) -> int:
+
+        n = len(prices)
+        profit = n*[0]
+
+        max_price = prices[-1]
+        for i in range(2,len(prices)+1):
+            max_price = max(max_price, prices[-i])
+            profit[-i] = max(profit[-i+1], max_price - prices[-i])
+
+        min_price = prices[0]
+        for i in range(1, len(prices)):
+            min_price = min(min_price, prices[i])
+            profit[i] = max(profit[i-1], profit[i]+(prices[i]-min_price))
+
+        return profit[-1]
+
 
 
 sol = Solution()
-prices = [100, 30, 15, 10, 8, 25, 80]
-print(sol.my_maxProfit(prices))
+prices = [3,3,5,0,0,3,1,4]
+print(sol.shorter_maxProfit(prices))
 
