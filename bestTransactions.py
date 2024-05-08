@@ -110,7 +110,14 @@ class Solution:
 
         return profit[-1]
 
-
+'''
+more shorter sol:(pseudo code)
+first_buy = min(first_buy, prices[i])
+first_sell = max(first_sell, prices[i]-first_buy)
+second_buy = max(second_buy, first_sell - prices[i])
+second_sell = max(second_sell, prices[i] + second_buy)
+retrun second_sell
+'''
 
 sol = Solution()
 prices = [3,3,5,0,0,3,1,4]
