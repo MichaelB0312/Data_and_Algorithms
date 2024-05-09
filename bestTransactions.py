@@ -110,14 +110,26 @@ class Solution:
 
         return profit[-1]
 
-'''
-more shorter sol:(pseudo code)
-first_buy = min(first_buy, prices[i])
-first_sell = max(first_sell, prices[i]-first_buy)
-second_buy = max(second_buy, first_sell - prices[i])
-second_sell = max(second_sell, prices[i] + second_buy)
-retrun second_sell
-'''
+    '''
+    more shorter sol:(pseudo code)
+    first_buy = min(first_buy, prices[i])
+    first_sell = max(first_sell, prices[i]-first_buy)
+    second_buy = max(second_buy, first_sell - prices[i])
+    second_sell = max(second_sell, prices[i] + second_buy)
+    retrun second_sell
+    '''
+
+    ### base on last comment ---> def for k transactions --> O(nk), O(k)
+    def k_maxProfit(self, prices: List[int], k: int) -> int:
+
+        sell_buy_list = 2*k*[0]
+        for i in range(len(prices)):
+            for j in range(1, 2*k, 2):
+                sell_buy_list[j] = max(sell_buy_list[j], sell_buy_list[j-1] - prices[i]) #buy
+                sell_buy_list[j+1] = max(sell_buy_list[j], sell_buy_list[j] + prices[i]) #sell
+
+        return sell_buy_list[-1]
+
 
 sol = Solution()
 prices = [3,3,5,0,0,3,1,4]
