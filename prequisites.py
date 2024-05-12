@@ -1,5 +1,5 @@
 from typing import List, Dict
-
+from collections import deque
 '''
 There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1.
  You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
@@ -14,10 +14,13 @@ class Node:
         self.end_time = 0
         self.visited = 0
 class Solution:
+
+    def __init__(self):
+        self.path = deque()
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
 
         # build Directed Graph
-        graph: Dict[int, List[Node]] = {} ##!!!! it need to be Dict[Node, List[Node]]
+        graph: Dict[int, List[Node]] = {}
         existed_nodes = numCourses*[None]
         for pair in prerequisites:
             if pair[1] not in graph:
@@ -56,11 +59,18 @@ class Solution:
                         return True
         curr_course.end_time = global_time + 1
         global_time += 1
+        # for print path option
+        self.path.appendleft(curr_course.val)
         return False
 
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+
+        if self.canFinish(numCourses, prerequisites):
+            return list(self.path)
+        return []
 
 
 sol = Solution()
 numCourses = 4
-prerequisites = [[1,0],[2,1],[3,2]]
-print(sol.canFinish(numCourses, prerequisites))
+prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+print(sol.findOrder(numCourses, prerequisites))
